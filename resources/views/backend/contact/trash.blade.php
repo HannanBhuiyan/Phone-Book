@@ -27,8 +27,8 @@
                     <p class="mb-2 text-muted">{{ $contact->contact_email }}</p>
                 </div>
                 <div class="action-btn">
-                    <a href="{{ route('permanent.delete', $contact->id) }}"><i class="fas fa-trash-alt text-danger"></i></a>
-                    <a href="{{ route('contact.restore', $contact->id) }}">re</a>
+                    <a class="permanentDelete" data-id="{{ $contact->id }}"><i class="fas fa-trash-alt text-danger"></i></a>
+                    <a href="{{ route('contact.restore', $contact->id) }}">Restore</a>
                 </div>
 
             </div>
@@ -42,3 +42,45 @@
    @endforelse
 </div>
 @endsection
+
+
+
+@section('scripts')
+
+<script type="text/javascript">
+    $(".permanentDelete").click(function(){
+        let id = $(this).attr('data-id')
+        swal({
+            title: "Are you sure?",
+            text: "Permanent delete this contacts !",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+            })
+            .then((willDelete) => {
+            if (willDelete) {
+                swal("Poof! Your imaginary file has been deleted!", {
+                icon: "success",
+                });
+                $.ajax({
+                        type:'GET',
+                        url: "/permanent-delete/"+id,
+                        dataType: 'json',
+                        success: function(data){
+                            setInterval(() => {
+                                window.location.reload(true);
+                            }, 1000);
+
+                        },
+                        error: function(data){
+                            console.log(data);
+                        }
+                    })
+            } else {
+                swal("Your imaginary file is safe!");
+            }
+            });
+        })
+</script>
+@endsection
+

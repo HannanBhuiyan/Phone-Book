@@ -13,10 +13,23 @@ class ContactController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $contacts = Contact::latest()->get();
-        return view('backend.contact.index', compact('contacts'));
+
+        $search = $request['search'] ?? "";
+        $status_search = $request['status'] ?? "";
+        $favorite_search = $request['favorite'] ?? "";
+
+        if($search != ""){
+            $contacts = Contact::where('contact_name', 'LIKE', "%$search%")->orWhere('contact_email', 'LIKE', $search)->paginate(8);
+        }
+        elseif($favorite_search != "" || $status_search != ""){
+            $contacts = Contact::where('is_favorite', 'LIKE', $favorite_search)->orWhere('is_status', 'LIKE', $status_search)->paginate(8);
+        }
+        else {
+            $contacts = Contact::paginate(8);
+        }
+        return view('backend.contact.index', compact('contacts', 'search'));
     }
 
     /**
@@ -64,8 +77,8 @@ class ContactController extends Controller
         $data->contact_email = $request->contact_email;
         $data->phone_number = $request->phone_number;
         $data->image = $last_image;
-        $data->is_favorite = $request->is_favorite;
-        $data->is_status = $request->is_status;
+        $data->is_favorite = $request->get('is_favorite') ?? 2;
+        $data->is_status = $request->get('is_status') ?? 2;
         $data->save();
 
         return redirect()->route('contact.index')->with('success', 'Contact Info added success');
@@ -131,10 +144,10 @@ class ContactController extends Controller
         $data->contact_name = $request->contact_name;
         $data->contact_email = $request->contact_email;
         $data->phone_number = $request->phone_number;
-        $data->is_favorite = $request->is_favorite;
-        $data->is_status = $request->is_status;
+        $data->is_favorite = $request->get('is_favorite') ?? 2;
+        $data->is_status = $request->get('is_status') ?? 2;
         $data->save();
-        return redirect()->route('contact.index');
+        return redirect()->route('contact.index')->with('success', 'Update successfully');
 
     }
 
@@ -147,7 +160,7 @@ class ContactController extends Controller
     public function delete($id)
     {
         Contact::findOrFail($id)->delete();
-        return back();
+        return response()->json();
     }
 
     public function all_trash_contact(){
@@ -161,12 +174,12 @@ class ContactController extends Controller
             unlink($delete_id->image);
         }
         $delete_id->forceDelete();
-        return back();
+        return response()->json();
     }
 
     public function contact_restore($id){
         Contact::withTrashed()->find($id)->restore();
-        return back();
+        return redirect()->route('contact.index')->with('success', 'Contact restore success');
     }
 
 }

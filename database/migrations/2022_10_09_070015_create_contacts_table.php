@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('contact_email');
             $table->string('phone_number');
             $table->string('image');
-            $table->string('is_favorite')->comment('1=fav, null=disfav')->nullable();
-            $table->string('is_status')->comment('1=active, null=inactive')->nullable();
+            $table->tinyInteger('is_favorite')->comment('1=fav, 2=disfav');
+            $table->tinyInteger('is_status')->comment('1=active, 2=inactive');
             $table->softDeletes();
             $table->timestamps();
         });

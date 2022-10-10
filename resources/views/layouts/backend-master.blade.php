@@ -8,7 +8,7 @@
         <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
         <meta content="" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <!-- App favicon -->
         <link rel="shortcut icon" href="{{ asset('backend') }}/assets/images/favicon.ico">
 
@@ -16,11 +16,36 @@
         <link href="{{ asset('backend') }}/plugins/lightpick/lightpick.css" rel="stylesheet" />
 
         <!-- App css -->
+
         <link href="{{ asset('backend') }}/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="{{ asset('backend') }}/assets/css/jquery-ui.min.css" rel="stylesheet">
         <link href="{{ asset('backend') }}/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
         <link href="{{ asset('backend') }}/assets/css/metisMenu.min.css" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('backend') }}/assets/css/toastr.min.css" rel="stylesheet"/>
         <link href="{{ asset('backend') }}/assets/css/app.min.css" rel="stylesheet" type="text/css" />
+
+        <style>
+            i.far.fa-heart, i.fas.fa-heart {
+                color: red;
+                background: #fff;
+                padding: 9px;
+                border-radius: 3px;
+                box-shadow: 0px 2px 4px rgb(31 30 47 / 10%);
+            }
+            .action-btn a {
+                background: #fff;
+                padding: 6px;
+                border-radius: 3px;
+                text-align: center;
+                box-shadow: 0px 2px 4px rgb(31 30 47 / 10%);
+            }
+            .search__btn {
+                display: inline-block;
+                width: 100%;
+                padding: 7px;
+                margin-top: 20px;
+            }
+        </style>
 
     </head>
 
@@ -220,6 +245,8 @@
         <script src="{{ asset('backend') }}/assets/js/feather.min.js"></script>
         <script src="{{ asset('backend') }}/assets/js/jquery.slimscroll.min.js"></script>
         <script src="{{ asset('backend') }}/assets/js/jquery-ui.min.js"></script>
+        <script src="{{ asset('backend') }}/assets/js/sweetalert.min.js"></script>
+        <script src="{{ asset('backend') }}/assets/js/toastr.min.js"></script>
 
         <script src="{{ asset('backend') }}/plugins/moment/moment.js"></script>
         <script src="{{ asset('backend') }}/plugins/apexcharts/apexcharts.min.js"></script>
@@ -230,9 +257,28 @@
         <script src="{{ asset('backend') }}/plugins/lightpick/lightpick.js"></script>
         <script src="{{ asset('backend') }}/assets/pages/jquery.sales_dashboard.init.js"></script>
 
-
         <!-- App js -->
         <script src="{{ asset('backend') }}/assets/js/app.js"></script>
+        @yield('scripts')
+        <script>
+            $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+        </script>
+
+        @if (Session::has('success'))
+            <script>
+                toastr.success("{!! Session::get('success') !!}")
+            </script>
+        @endif
+
+        @if (Session::has('fail'))
+            <script>
+                toastr.error("{!! Session::get('fail') !!}")
+            </script>
+        @endif
 
     </body>
 

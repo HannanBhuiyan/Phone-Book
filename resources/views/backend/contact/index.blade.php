@@ -16,6 +16,37 @@
         </div><!--end page-title-box-->
     </div><!--end col-->
 </div>
+
+<div class="serach_area mb-4">
+    <form action="">
+        <div class="row">
+            <div class="col-md-3">
+                <span>Favorite</span>:
+                <select name="favorite" class="form-control">
+                    <option>--Choose--</option>
+                    <option value="1">Favorite</option>
+                    <option value="2">Disfavorite</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <span>Status</span>:
+                <select name="status" class="form-control">
+                    <option>--Choose--</option>
+                    <option value="1">Active</option>
+                    <option value="2">Inactive</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <span>Favorite</span>:
+                <input type="search" placeholder="Search by name/email" value="{{ $search }}" name="search" class="form-control">
+            </div>
+            <div class="col-md-3">
+                <button class="search__btn btn btn-sm btn-gradient-success">Search</button>
+            </div>
+        </div>
+    </form>
+</div>
+
 <div class="row">
    @forelse ($contacts as $contact)
    <div class="col-lg-3">
@@ -28,9 +59,10 @@
                     <p class="mb-2 text-muted">{{ $contact->contact_email }}</p>
                 </div>
                 <div class="action-btn">
-                    <a href="{{ route('contact.show', $contact->id) }}"><i class="far fa-eye text-primary mr-2"></i></a>
-                    <a href="{{ route('contact.edit', $contact->id) }}"><i class="fas fa-pen text-info mr-2"></i></a>
-                    <a href="{{ route('contact.delete', $contact->id) }}"><i class="fas fa-trash-alt text-danger"></i></a>
+                    <a href="{{ route('contact.show', $contact->id) }}"><i class="far fa-eye text-primary"></i></a>
+                    <a href="{{ route('contact.edit', $contact->id) }}"><i class="fas fa-pen text-info"></i></a>
+                    <a class="contactDelete" data-id="{{ $contact->id }}" ><i class="fas fa-trash-alt text-danger"></i></a>
+                    <i class=" {{ $contact->is_favorite == 1 ? 'fas fa-heart' : 'far fa-heart' }}"></i>
                 </div>
             </div>
             <div class="text-center">
@@ -45,4 +77,53 @@
     </div>
    @endforelse
 </div>
+<nav aria-label="Page navigation example">
+     {{ $contacts->links() }}
+</nav>
+@endsection
+
+@section('scripts')
+
+<script type="text/javascript">
+    $(".contactDelete").click(function(){
+        let id = $(this).attr('data-id')
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this imaginary file!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+            })
+            .then((willDelete) => {
+            if (willDelete) {
+                swal("Poof! Your imaginary file has been deleted!", {
+                icon: "success",
+                });
+                $.ajax({
+                        type:'GET',
+                        url: "/delete/"+id,
+                        dataType: 'json',
+                        success: function(data){
+                            setInterval(() => {
+                                window.location.reload(true);
+                            }, 1000);
+
+                        },
+                        error: function(data){
+                            console.log(data);
+                        }
+                    })
+            } else {
+                swal("Your imaginary file is safe!");
+            }
+            });
+        })
+</script>
+
+
+
+
+
+
+
 @endsection
