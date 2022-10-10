@@ -75,7 +75,7 @@
                     </div>
                     <div class="form-group mb-0">
                         <button type="submit" class="btn btn-gradient-primary waves-effect waves-light">
-                            Submit
+                            Add Contact
                         </button>
                         <button type="reset" class="btn btn-gradient-danger waves-effect m-l-5">
                             <a class="text-white" href="{{ route('contact.index') }}">Cancel</a>

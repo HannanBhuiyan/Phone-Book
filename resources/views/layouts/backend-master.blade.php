@@ -25,19 +25,24 @@
         <link href="{{ asset('backend') }}/assets/css/app.min.css" rel="stylesheet" type="text/css" />
 
         <style>
+            a.permanentDelete, a.contactDelete {
+                cursor: pointer;
+            }
             i.far.fa-heart, i.fas.fa-heart {
                 color: red;
                 background: #fff;
-                padding: 9px;
+                padding: 11px 8px;
                 border-radius: 3px;
                 box-shadow: 0px 2px 4px rgb(31 30 47 / 10%);
+                margin-left: 10px;
             }
             .action-btn a {
                 background: #fff;
-                padding: 6px;
+                padding: 8px;
                 border-radius: 3px;
                 text-align: center;
                 box-shadow: 0px 2px 4px rgb(31 30 47 / 10%);
+                margin-left: 10px;
             }
             .search__btn {
                 display: inline-block;
@@ -45,6 +50,7 @@
                 padding: 7px;
                 margin-top: 20px;
             }
+
         </style>
 
     </head>
@@ -176,7 +182,7 @@
                             <span class="ml-1 nav-user-name hidden-sm">{{auth::user()->name}} <i class="mdi mdi-chevron-down"></i> </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="#"><i class="ti-user text-muted mr-2"></i> Profile</a>
+                            <a class="dropdown-item" href="{{ route('profile.index') }}"><i class="ti-user text-muted mr-2"></i> Profile</a>
                             <div class="dropdown-divider mb-0"></div>
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit()"><i class="ti-power-off text-muted mr-2"></i> Logout</a>
                             <form id="logout-form" method="POST"  action="{{ route('logout') }}">
@@ -218,6 +224,13 @@
                         <li class="nav-item"><a class="nav-link" href="{{ route('contact.trash') }}"><i class="ti-control-record"></i>All Trash Contact</a></li>
                     </ul>
                 </li>
+
+                <li>
+                    <a href="javascript: void(0);"><i class="ti-layers-alt"></i><span>Settings</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+                    <ul class="nav-second-level" aria-expanded="false">
+                        <li class="nav-item"><a class="nav-link" href="{{ route('mail.index') }}"><i class="ti-control-record"></i>Mail Body</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
         <!-- end left-sidenav-->
@@ -226,7 +239,6 @@
             <div class="page-content">
                 <div class="container-fluid">
                    @yield('content')
-
                 </div><!-- container -->
                 <footer class="footer text-center text-sm-left">
                     &copy; 2020 Crovex <span class="text-muted d-none d-sm-inline-block float-right">Crafted with <i class="mdi mdi-heart text-danger"></i> by Mannatthemes</span>
@@ -256,6 +268,11 @@
         <script src="{{ asset('backend') }}/plugins/chartjs/roundedBar.min.js"></script>
         <script src="{{ asset('backend') }}/plugins/lightpick/lightpick.js"></script>
         <script src="{{ asset('backend') }}/assets/pages/jquery.sales_dashboard.init.js"></script>
+
+
+        <script src="{{ asset('backend') }}/plugins/tinymce/tinymce.min.js"></script>
+        <script src="{{ asset('backend') }}/assets/pages/jquery.form-editor.init.js"></script>
+
 
         <!-- App js -->
         <script src="{{ asset('backend') }}/assets/js/app.js"></script>

@@ -6,6 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Contact;
 use Image;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\UserContactMail;
+use App\Models\MailSettings;
+
+
 class ContactController extends Controller
 {
     /**
@@ -180,6 +185,12 @@ class ContactController extends Controller
     public function contact_restore($id){
         Contact::withTrashed()->find($id)->restore();
         return redirect()->route('contact.index')->with('success', 'Contact restore success');
+    }
+
+    public function send_mail($id){
+        $contact = Contact::findOrFail($id);
+        Mail::to($contact->contact_email)->send(new UserContactMail($contact));
+        return redirect()->route('contact.index')->with('success', 'Mail send success');
     }
 
 }

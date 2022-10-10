@@ -49,7 +49,7 @@
 
 <div class="row">
    @forelse ($contacts as $contact)
-   <div class="col-lg-3">
+   <div class="col-lg-4">
     <div class="card profile-card">
         <div class="card-body p-0">
             <div class="media p-3 pb-0 align-items-center">
@@ -66,7 +66,7 @@
                 </div>
             </div>
             <div class="text-center">
-                <button type="button" class="btn btn-sm btn-gradient-primary mb-3">Send Mail</button>
+                <a href="{{ route('send-mail', $contact->id) }}"  class="btn btn-sm btn-gradient-primary mb-3">Send Mail</a>
             </div>
         </div><!--end card-body-->
     </div><!--end card-->
@@ -80,6 +80,7 @@
 <nav aria-label="Page navigation example">
      {{ $contacts->links() }}
 </nav>
+
 @endsection
 
 @section('scripts')
