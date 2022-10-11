@@ -50,6 +50,30 @@
                 padding: 7px;
                 margin-top: 20px;
             }
+            div#datatable_filter {
+                text-align: end;
+            }
+            ul.pagination {
+                justify-content: end;
+            }
+            sup.round-status {
+                width: 10px;
+                height: 10px;
+                display: inline-block;
+                border-radius: 50%;
+            }
+            sup.round-status.online {
+                background: #39cb58;
+            }
+            sup.round-status.offline {
+                background: red;
+            }
+            span.user-name {
+                margin-left: 0;
+            }
+            td.sorting_1 img {
+                margin-right: 20px;
+            }
 
         </style>
 
@@ -216,19 +240,33 @@
                 <li class="{{ URL::current() == asset('home') ? "mm-active" : "" }}">
                     <a href="{{ route('home') }}"><i class="ti-bar-chart"></i><span>Dashboard</span><span class="menu-arrow"></span></a>
                 </li>
+                @if (Auth::user()->role != 1)
                 <li>
-                    <a href="javascript: void(0);"><i class="ti-layers-alt"></i><span>Contact</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+                    <a href="javascript: void(0);"><i class="ti-themify-favicon-alt"></i><span>Contact</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
                     <ul class="nav-second-level" aria-expanded="false">
                         <li class="nav-item"><a class="nav-link" href="{{ route('contact.index') }}"><i class="ti-control-record"></i>List Contact</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('contact.create') }}"><i class="ti-control-record"></i>Add New Contact</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('contact.trash') }}"><i class="ti-control-record"></i>All Trash Contact</a></li>
                     </ul>
                 </li>
-
+                @endif
+                @if (Auth::user()->role == 1)
+                    <li>
+                        <a href="javascript: void(0);"><i class="ti-layers-alt"></i><span>User</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+                        <ul class="nav-second-level" aria-expanded="false">
+                            <li class="nav-item"><a class="nav-link" href="{{ route('user.index') }}"><i class="ti-control-record"></i>All User</a></li>
+                        </ul>
+                    </li>
+                @endif
                 <li>
-                    <a href="javascript: void(0);"><i class="ti-layers-alt"></i><span>Settings</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+                    <a href="javascript: void(0);"><i class="ti-settings"></i><span>Settings</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
                     <ul class="nav-second-level" aria-expanded="false">
-                        <li class="nav-item"><a class="nav-link" href="{{ route('mail.index') }}"><i class="ti-control-record"></i>Mail Body</a></li>
+                        @if (Auth::user()->role != 1)
+                            <li class="nav-item"><a class="nav-link" href="{{ route('mail.index') }}"><i class="ti-control-record"></i>Mail Body</a></li>
+                        @else
+                            <li class="nav-item"><a class="nav-link" href="#"><i class="ti-control-record"></i>Send Mail</a></li>
+                        @endif
+
                     </ul>
                 </li>
             </ul>
@@ -273,10 +311,17 @@
         <script src="{{ asset('backend') }}/plugins/tinymce/tinymce.min.js"></script>
         <script src="{{ asset('backend') }}/assets/pages/jquery.form-editor.init.js"></script>
 
+        <script src="{{ asset('backend') }}/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="{{ asset('backend') }}/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+
 
         <!-- App js -->
         <script src="{{ asset('backend') }}/assets/js/app.js"></script>
+
         @yield('scripts')
+        <script>
+            $('#datatable').DataTable();
+        </script>
         <script>
             $.ajaxSetup({
                     headers: {

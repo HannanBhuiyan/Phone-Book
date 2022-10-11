@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\ContactController;
 use App\Http\Controllers\Backend\MailController;
 use App\Http\Controllers\Backend\SocialLoginController;
 use App\Http\Controllers\Backend\ProfileController;
+use App\Http\Controllers\Backend\UserController;
 
 
 
@@ -40,3 +41,14 @@ Route::get('google/callback', [SocialLoginController::class, 'CallbackFronGoogle
 // Profile route
 
 Route::get('profile/index', [ProfileController::class, 'profile_index'])->name('profile.index');
+Route::post('profile/image/change', [ProfileController::class, 'profile_image_change'])->name('profile.image.edit');
+Route::post('profile/content/change', [ProfileController::class, 'profile_content_change'])->name('profile.content.edit');
+Route::post('password/change', [ProfileController::class, 'password_change'])->name('password.change');
+
+// User route
+
+Route::get('user', [UserController::class, 'index'])->name('user.index');
+Route::get('admin/role/change/{id}', [UserController::class, 'admin_role_change'])->name('admin.role.change');
+Route::get('user/role/change/{id}', [UserController::class, 'user_role_change'])->name('user.role.change');
+Route::get('user/active/{id}', [UserController::class, 'user_active'])->name('user.active');
+Route::get('user/banned/{id}', [UserController::class, 'user_banned'])->name('user.banned');

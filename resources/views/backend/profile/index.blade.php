@@ -39,23 +39,114 @@
             </div><!--end card-->
         </div><!--end col-->
     </div><!--end row-->
-    <div class="row">
+    <div class="row mt-4">
         <div class="col-12">
             <div class="tab-content detail-list" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="profile">
-                    <h2>profile</h2>
+                     <div class="row">
+                        <div class="col-md-4">
+                            <div class="card">
+                                <img src="{{ asset(Auth::user()->image) }}" alt="">
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="from-group mb-4">
+                                        <input type="text" disabled value="Name : {{ Auth::user()->name }}" class="form-control">
+                                    </div>
+                                    <div class="from-group mb-4">
+                                        <input type="text" disabled value="Email : {{ Auth::user()->email }}" class="form-control">
+                                    </div>
+                                    <div class="from-group mb-4">
+                                        <input type="text" disabled value="Role : {{ Auth::user()->role == 1 ? "Admin" : "User"  }}" class="form-control">
+                                    </div>
+                                    <div class="from-group mb-4">
+                                        <input type="text" disabled value="Created At : {{ Auth::user()->created_at->diffForHumans() }}" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                     </div>
                 </div><!--end general detail-->
                 <div class="tab-pane fade show" id="profile_image">
+                    <div class="row">
+                        <div class="col-md-4 m-auto">
+                            <form action="{{ route('profile.image.edit') }}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                <input type="hidden" name="old_image" value="{{ Auth::user()->image }}">
+                                <img id="img_id" width="100%" src="{{ asset(Auth::user()->image) }}" alt="">
+                                <input type="file" onchange="document.getElementById('img_id').src=window.URL.createObjectURL(this.files[0])" class=" my-3 form-control" name="image">
+                                <button class="btn btn-gradient-primary waves-effect waves-light">Change Image</button>
+                            </form>
+                        </div>
+                    </div>
 
-                    <h2>sdfsdf</h2>
                 </div><!--end general detail-->
 
                 <div class="tab-pane fade" id="profile_info">
-                    <h2>profile info</h2>
+                     <div class="row">
+                        <div class="col-md-10 m-auto">
+                            <form action="{{ route('profile.content.edit') }}" method="post" >
+                                @csrf
+                                <div class="form-group mb-4">
+                                    <input type="text" value="{{ Auth::user()->name }}" name="name" class="form-control">
+                                </div>
+                                <div class="form-group mb-4">
+                                    <input type="email" value="{{ Auth::user()->email }}" name="email" class="form-control">
+                                </div>
+                                <div class="form-group mb-4">
+                                    <button type="submit" class="btn btn-gradient-primary waves-effect waves-light">Update Profile</button>
+                                </div>
+                            </form>
+                        </div>
+                     </div>
                 </div><!--end education detail-->
 
                 <div class="tab-pane fade" id="change_password">
-                        <h2>change pass</h2>
+                    <div class="row">
+                        <div class="col-md-10 m-auto">
+                            <form method="POST"  action="{{ route('password.change') }}" >
+                                @csrf
+                                <div class="mb-3 text-start">
+                                  <label for="current_password" class="form-label ">Current Passord</label>
+                                  <input type="password" placeholder="Enter your Current password" name="current_password" class="form-control" id="current_password">
+                                  <div class="div mt-2">
+                                    @error('current_password')
+                                        <span class="text-danger">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                </div>
+                                <div class="mb-3 text-start">
+                                  <label for="current_password" class="form-label">New Password</label>
+                                  <input type="password" placeholder="Enter your new password" name="new_password" class="form-control" id="current_password">
+                                  <div class="div mt-2">
+                                    @error('new_password')
+                                        <span class="text-danger">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                </div>
+                                <div class="mb-3 text-start">
+                                  <label for="current_password" class="form-label">Confirm New Passord</label>
+                                  <input type="password" placeholder="Enter your Confirm password" name="confirm_password" class="form-control" id="current_password">
+                                  <div class="div mt-2">
+                                    @error('confirm_password')
+                                        <span class="text-danger">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <button style="submit" class="btn btn-gradient-primary waves-effect waves-light">Update Password
+                                </button></div>
+                              </form>
+                        </div>
+                    </div>
                 </div><!--end portfolio detail-->
 
 

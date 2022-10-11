@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('image');
             $table->string('role')->comment('1=admin, 2=user');
-            $table->string('active')->default(1)->comment('0=inactive, 1=active');
+            $table->string('active')->default(1)->comment('0=banned, 1=active');
             $table->string('last_seen')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
