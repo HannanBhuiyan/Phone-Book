@@ -1,8 +1,7 @@
-@extends('layouts.app')
-
+@include('auth.inc.header')
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row vh-100 ">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Verify Your Email Address') }}</div>
@@ -23,6 +22,8 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </div><!--end row-->
+</div><!--end container-->
 @endsection
+
+@include('auth.inc.footer')

@@ -5,6 +5,7 @@
         <div class="row vh-100 ">
             <div class="col-12 align-self-center">
                 <div class="auth-page">
+
                     <div class="card auth-card shadow-lg">
                         <div class="card-body">
                             <div class="px-3">
@@ -16,7 +17,9 @@
                                     <h4 class="mt-0 mb-3 mt-5">Let's Get Started PhoneBook</h4>
                                     <p class="text-muted mb-0">Sign in to continue to PhoneBook.</p>
                                 </div> <!--end auth-logo-text-->
-
+                                @error('banned')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
 
                                 <form class="form-horizontal auth-form my-4" method="POST" action="{{ route('login') }}">
 

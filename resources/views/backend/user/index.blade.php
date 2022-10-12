@@ -15,6 +15,7 @@
     </div>
     <!-- end page title end breadcrumb -->
     <div class="row">
+
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
@@ -62,9 +63,18 @@
                                     @endif
 
                                 </td>
-                                <td>Online <sup class="round-status offline"></sup></td>
+
                                 <td>
-                                    @if ($user->active == 1)
+                                @if($user->userIsOnline())
+                                    Online <sup class="round-status online"></sup>
+                                @else
+                                    Offline <sup class="round-status offline "></sup>
+                                    <p>{{ \Carbon\Carbon::parse($user->last_seen)->diffForHumans() }}</p>
+                                @endif
+
+                                </td>
+                                <td>
+                                    @if ($user->isban == 1)
                                         <span class="badge badge-md badge-soft-success">active</span>
                                     @else
                                         <span class="badge badge-md badge-soft-danger">Banned</span>
@@ -72,14 +82,11 @@
 
                                 </td>
                                 <td>
-                                    <a href="" class="btn btn-secondary mr-2">Send Mail</a>
-                                    @if ($user->active == 0)
+                                    @if ($user->isban == 0)
                                         <a href="{{ route('user.active', $user->id) }}" class="btn btn-success mr-2">Active Now</a>
                                     @else
                                         <a href="{{ route('user.banned', $user->id) }}" class="btn btn-info mr-2">Banned Now</a>
                                     @endif
-
-                                    <a href="" class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>
                             @empty

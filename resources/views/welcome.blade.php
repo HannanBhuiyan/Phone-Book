@@ -1,16 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phone Book</title>
-</head>
-<body>
-    
 
+@include('auth.inc.header')
+<style>
+    .account-body .auth-page {
+    text-align: center;
+    max-width: 592px;
+    position: relative;
+    margin: 0 auto;
+}
+.home_title {
+    font-size: 40px;
+    line-height: 56px;
+    font-weight: 900;
+}
+</style>
+<!-- Log In page -->
+<div class="container">
+    <div class="row vh-100 ">
+        <div class="col-12 align-self-center">
+            <div class="auth-page">
+                <div class="card auth-card shadow-lg">
+                    <div class="card-body" style="padding: 40px 45px">
+                            <h3 class="mb-4 home_title">Welcome To PhoneBook Software</h3>
+                            <a class="d-block btn btn-primary mb-3" href="{{ route('login') }}">Login</a>
+                            <a class="d-block btn btn-success" href="{{ route('register') }}">Register</a>
 
-    <h2>Phone Book</h2>
-
-</body>
-</html>
+                    </div><!--end card-body-->
+                </div><!--end card-->
+            </div><!--end auth-page-->
+        </div><!--end col-->
+    </div><!--end row-->
+</div><!--end container-->
+<!-- End Log In page -->
+@include('auth.inc.footer')

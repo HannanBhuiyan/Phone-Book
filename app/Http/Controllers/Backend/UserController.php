@@ -32,14 +32,14 @@ class UserController extends Controller
     // Active user
     public function user_active($id)
     {
-        User::findOrFail($id)->update(['active' => 1]);
+        User::findOrFail($id)->update(['isban' => 1]);
         return redirect()->route('user.index')->with('success', 'User Active Success');
     }
 
     // Active user
     public function user_banned($id)
     {
-        User::findOrFail($id)->update(['active' => 0]);
+        User::findOrFail($id)->update(['isban' => 0]);
         return redirect()->route('user.index')->with('success', 'User Banner Success');
     }
 }

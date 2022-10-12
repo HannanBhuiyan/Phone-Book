@@ -7,9 +7,7 @@
         <div class="page-title-box">
             <div class="float-right">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0);">Crovex</a></li>
-                    <li class="breadcrumb-item"><a href="javascript:void(0);">Apps</a></li>
-                    <li class="breadcrumb-item active">Cantacts</li>
+                    <li class="breadcrumb-item active">Cantact</li>
                 </ol>
             </div>
             <h4 class="page-title">Cantacts</h4>

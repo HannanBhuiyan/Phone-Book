@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="utf-8" />
-        <title>Crovex - Admin & Dashboard Template</title>
+        <title>PhoneBook</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
         <meta content="" name="author" />
@@ -75,6 +75,12 @@
                 margin-right: 20px;
             }
 
+            .topbar .topbar-left .logo {
+                line-height: 70px;
+                color: #1761fd;
+                font-size: 25px;
+                font-weight: 900;
+            }
         </style>
 
     </head>
@@ -86,15 +92,7 @@
 
             <!-- LOGO -->
             <div class="topbar-left">
-                <a href="../dashboard/crm-index.html" class="logo">
-                    <span>
-                        <img src="{{ asset('backend') }}/assets/images/logo-sm.png" alt="logo-small" class="logo-sm">
-                    </span>
-                    <span>
-                        <img src="{{ asset('backend') }}/assets/images/logo.png" alt="logo-large" class="logo-lg logo-light">
-                        <img src="{{ asset('backend') }}/assets/images/logo-dark.png" alt="logo-large" class="logo-lg">
-                    </span>
-                </a>
+                <a href="{{ route('home') }}" class="logo"><span>PhoneBook</span></a>
             </div>
             <!--end logo-->
             <!-- Navbar -->
@@ -202,7 +200,7 @@
                     <li class="dropdown">
                         <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
                             aria-haspopup="false" aria-expanded="false">
-                            <img src="{{ asset('backend') }}/assets/images/users/user-1.png" alt="profile-user" class="rounded-circle" />
+                            <img src="{{ asset(Auth::user()->image) }}" alt="profile-user" class="rounded-circle" />
                             <span class="ml-1 nav-user-name hidden-sm">{{auth::user()->name}} <i class="mdi mdi-chevron-down"></i> </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
@@ -249,6 +247,12 @@
                         <li class="nav-item"><a class="nav-link" href="{{ route('contact.trash') }}"><i class="ti-control-record"></i>All Trash Contact</a></li>
                     </ul>
                 </li>
+                <li>
+                    <a href="javascript: void(0);"><i class="ti-settings"></i><span>Settings</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+                    <ul class="nav-second-level" aria-expanded="false">
+                        <li class="nav-item"><a class="nav-link" href="{{ route('mail.index') }}"><i class="ti-control-record"></i>Mail Body</a></li>
+                    </ul>
+                </li>
                 @endif
                 @if (Auth::user()->role == 1)
                     <li>
@@ -258,17 +262,8 @@
                         </ul>
                     </li>
                 @endif
-                <li>
-                    <a href="javascript: void(0);"><i class="ti-settings"></i><span>Settings</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
-                    <ul class="nav-second-level" aria-expanded="false">
-                        @if (Auth::user()->role != 1)
-                            <li class="nav-item"><a class="nav-link" href="{{ route('mail.index') }}"><i class="ti-control-record"></i>Mail Body</a></li>
-                        @else
-                            <li class="nav-item"><a class="nav-link" href="#"><i class="ti-control-record"></i>Send Mail</a></li>
-                        @endif
 
-                    </ul>
-                </li>
+
             </ul>
         </div>
         <!-- end left-sidenav-->

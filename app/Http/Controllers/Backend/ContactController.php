@@ -12,6 +12,7 @@ use App\Models\MailSettings;
 use Illuminate\Support\Facades\Auth;
 
 
+
 class ContactController extends Controller
 {
     /**

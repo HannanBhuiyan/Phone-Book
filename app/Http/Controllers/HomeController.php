@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Contact;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class HomeController extends Controller
 {
@@ -23,6 +26,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $total_contacts = Contact::where('auth_id', Auth::id())->count();
+        $total_users = User::where('id', '!=',  Auth::id())->count();
+
+        return view('home', compact('total_users', 'total_contacts'));
     }
 }

@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
             'name' => "admin",
             'image' => 'backend/assets/images/default.jpg',
             'role' => 1,
-            'active' => 1,
+            'isban' => 1,
             'email' => "admin@gmail.com",
             'password' => Hash::make('admin@gmail.com'),
             'created_at' => Carbon::now(),

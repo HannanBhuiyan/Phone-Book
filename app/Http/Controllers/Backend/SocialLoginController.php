@@ -29,6 +29,9 @@ class SocialLoginController extends Controller
             ], [
                 'name' => $user->getName(),
                 'email' => $user->getEmail(),
+                'image' => 'backend/assets/images/default.jpg',
+                'role' => 2,
+                'isban' => 1,
                 'password' => Hash::make($user->getEmail()),
             ]);
         }else {
